@@ -6,7 +6,7 @@ Group members (3-5) (no Student IDs, only names and github usernames):
 
 2. Kaathihan Luxmachandran (Kaathihan)
 
-3. 
+3. Eihab Syed (EihabSyed)
 
 4. 
 
