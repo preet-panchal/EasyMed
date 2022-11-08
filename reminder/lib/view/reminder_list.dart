@@ -42,7 +42,7 @@ class _ReminderListState extends State<ReminderList> {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
+    //final user = FirebaseAuth.instance.currentUser!;
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
