@@ -36,15 +36,18 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                primary: Colors.red,
-                onPrimary: Colors.white,
-                minimumSize: Size(double.infinity,50)
-              ),
+                  primary: Colors.red,
+                  onPrimary: Colors.white,
+                  minimumSize: Size(double.infinity, 50)),
               onPressed: () {
-                final provider = Provider.of<GoogleSignInProvider>(context,listen:false);
+                final provider =
+                    Provider.of<GoogleSignInProvider>(context, listen: false);
                 provider.googleLogin();
               },
-              icon: FaIcon(FontAwesomeIcons.google,color: Colors.white,),
+              icon: FaIcon(
+                FontAwesomeIcons.google,
+                color: Colors.white,
+              ),
               label: Text("Sign in with Google"),
             )
           ],
@@ -53,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Future<void> showLoginWidget() async{
+  Future<void> showLoginWidget() async {
     var login = await Navigator.pushNamed(context, '/login');
   }
 }
