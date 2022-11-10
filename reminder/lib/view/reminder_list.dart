@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:reminder/controller/add_reminder.dart';
 import 'package:reminder/view/google_sign_in.dart';
 import 'package:reminder/view/login.dart';
+import 'package:reminder/view/profile.dart';
+import 'package:reminder/view/search.dart';
 
 import '../model/reminder_model.dart';
 
@@ -27,12 +29,9 @@ class _ReminderListState extends State<ReminderList> {
   void initState() {
     super.initState();
 
-    Timer timer = new Timer.periodic(new Duration(milliseconds: 500),
-            (Timer timer) async {
-          this.setState(() {
-            readReminders();
-          });
-        });
+    setState(() {
+      readReminders();
+    });
   }
 
   @override
@@ -48,14 +47,34 @@ class _ReminderListState extends State<ReminderList> {
       appBar: AppBar(
         title: Text("Medical Reminder"),
         actions: <Widget>[
+          // IconButton(
+          //   icon: const Icon(Icons.logout),
+          //   tooltip: 'Edit',
+          //   onPressed: () {
+          //     final provider =
+          //         Provider.of<GoogleSignInProvider>(context, listen: false);
+          //     provider.logout();
+          //   },
+          // ),
           IconButton(
-            icon: const Icon(Icons.logout),
-            tooltip: 'Edit',
             onPressed: () {
-              final provider =
-                  Provider.of<GoogleSignInProvider>(context, listen: false);
-              provider.logout();
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Search()));
             },
+            icon: Icon(Icons.search),
+          ),
+
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.home),
+          ),
+
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Profile()));
+            },
+            icon: Icon(Icons.person),
           ),
         ],
       ),
@@ -80,9 +99,11 @@ class _ReminderListState extends State<ReminderList> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => ReminderForm()));
-          setState(() {
-            readReminders();
+              context, MaterialPageRoute(builder: (context) => ReminderForm())
+          ).then((value) => {
+            setState(() {
+              readReminders();
+            })
           });
         },
         tooltip: 'Add',
