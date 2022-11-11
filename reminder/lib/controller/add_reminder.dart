@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:reminder/model/reminder.dart';
 
@@ -16,6 +16,7 @@ class ReminderForm extends StatefulWidget {
 
 class _ReminderFormState extends State<ReminderForm> {
   var formKey = GlobalKey<FormState>();
+  TextEditingController dateInput = TextEditingController();
 
   var _reminderName;
   var _reminderIntructions;
@@ -25,6 +26,7 @@ class _ReminderFormState extends State<ReminderForm> {
 
   @override
   void initState() {
+    dateInput.text = "";
     super.initState();
   }
 
@@ -60,6 +62,36 @@ class _ReminderFormState extends State<ReminderForm> {
                 _reminderIntructions = value;
               },
             ),
+            TextField(
+              controller: dateInput,
+              //editing controller of this TextField
+              decoration: const InputDecoration(
+                  icon: Icon(Icons.calendar_today), //icon of text field
+                  labelText: "Enter Date" //label text of field
+              ),
+              readOnly: true,
+              //set it true, so that user will not able to edit text
+              onTap: () async {
+                DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2100));
+
+                if (pickedDate != null) {
+                  print(
+                      pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                  String formattedDate =
+                  DateFormat('yyyy-MM-dd').format(pickedDate);
+                  print(
+                      formattedDate); //formatted date output using intl package =>  2021-03-16
+                  setState(() {
+                    dateInput.text =
+                        formattedDate; //set output date to TextField value.
+                  });
+                } else {}
+              },
+            )
           ],
         ),
       ),
