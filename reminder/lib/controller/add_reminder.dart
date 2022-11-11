@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:reminder/model/reminder.dart';
 
 import '../model/reminder_model.dart';
+import 'notifications.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 class ReminderForm extends StatefulWidget {
   ReminderForm({Key? key}) : super(key: key);
@@ -17,12 +20,14 @@ class ReminderForm extends StatefulWidget {
 class _ReminderFormState extends State<ReminderForm> {
   var formKey = GlobalKey<FormState>();
   TextEditingController dateInput = TextEditingController();
+  final _notifications = Notifications();
 
   var _reminderName;
   var _reminderIntructions;
   var _lastInsertedId = 0;
   var _model = ReminderModel();
   var _replaceId;
+  String title = "Add Medication Reminder";
 
   @override
   void initState() {
@@ -38,16 +43,17 @@ class _ReminderFormState extends State<ReminderForm> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    _notifications.init();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Medication Reminder"),
+        title: Text(title),
       ),
       body: Form(
         key: formKey,
         child: Column(
           children: [
             TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Medication Name:",
               ),
               onChanged: (value) {
@@ -55,7 +61,7 @@ class _ReminderFormState extends State<ReminderForm> {
               },
             ),
             TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Instructions:",
               ),
               onChanged: (value) {
@@ -98,7 +104,8 @@ class _ReminderFormState extends State<ReminderForm> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _addReminder();
-          openDialog(); 
+          openDialog();
+          _notificationNow();
         },
         tooltip: 'Save',
         child: const Icon(Icons.save),
@@ -119,8 +126,39 @@ class _ReminderFormState extends State<ReminderForm> {
 
   Future openDialog() => showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (context) => const AlertDialog(
         title: Text('Medication successfully saved to profile.'),
       ),
   );
+
+  void _notificationNow() async{
+    _notifications.sendNotificationNow(title, _reminderName.toString(),
+        _reminderIntructions.toString());
+  }
+
+  Future _notificationLater() async{
+    var when = tz.TZDateTime.now(tz.local)
+        .add(Duration(seconds: 3));
+
+    await _notifications.sendNotificationLater("hello", "hello", "hello", when);
+
+    var snackBar = const SnackBar(
+      content: Text("Notification in 3 seconds",
+        style: TextStyle(fontSize: 30),
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+  }
+
+  Future _showPendingNotifications() async{
+    var pendingNotificationRequests
+    = await _notifications.getPendingNotificationRequests();
+
+    print("Pending Notifications:");
+    for (var pendNot in pendingNotificationRequests){
+      print("${pendNot.id} / ${pendNot.title} / ${pendNot.body}");
+    }
+  }
+
 }
