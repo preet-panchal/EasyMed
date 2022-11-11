@@ -98,6 +98,7 @@ class _ReminderFormState extends State<ReminderForm> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _addReminder();
+          openDialog(); 
         },
         tooltip: 'Save',
         child: const Icon(Icons.save),
@@ -115,4 +116,11 @@ class _ReminderFormState extends State<ReminderForm> {
     _lastInsertedId = await _model.insertReminder(reminder);
     print("Grade Inserted: $_lastInsertedId, ${reminder.toString()}");
   }
+
+  Future openDialog() => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Medication successfully saved to profile.'),
+      ),
+  );
 }
