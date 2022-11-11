@@ -136,6 +136,7 @@ class _ReminderFormState extends State<ReminderForm> {
         _reminderIntructions.toString());
   }
 
+  /**
   Future _notificationLater() async{
     var when = tz.TZDateTime.now(tz.local)
         .add(Duration(seconds: 3));
@@ -160,5 +161,6 @@ class _ReminderFormState extends State<ReminderForm> {
       print("${pendNot.id} / ${pendNot.title} / ${pendNot.body}");
     }
   }
+   **/
 
 }
