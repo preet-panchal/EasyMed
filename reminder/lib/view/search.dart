@@ -26,14 +26,16 @@ class _SearchState extends State<Search> {
           IconButton(
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ReminderList()));
+                  MaterialPageRoute(builder: (context) => ReminderList())
+              );
             },
             icon: Icon(Icons.home),
           ),
           IconButton(
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Profile()));
+                  context, MaterialPageRoute(builder: (context) => Profile())
+              );
             },
             icon: Icon(Icons.person),
           ),

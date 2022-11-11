@@ -48,7 +48,7 @@ class _ReminderListState extends State<ReminderList> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("Medical Reminder"),
+        title: Text("EasyMed"),
         actions: <Widget>[
           // IconButton(
           //   icon: const Icon(Icons.logout),
@@ -62,7 +62,19 @@ class _ReminderListState extends State<ReminderList> {
           IconButton(
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Search()));
+                  context, MaterialPageRoute(builder: (context) => Search())
+              );
+              final snackText = 'Medications list pulled from Firebase.';
+              final snackBar = SnackBar(
+                duration: Duration(days: 365),
+                content: Text(snackText),
+                action: SnackBarAction(
+                  label: 'Dismiss',
+                  onPressed: () {},
+                ),
+              );
+
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
             },
             icon: Icon(Icons.search),
           ),
