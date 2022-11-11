@@ -29,11 +29,8 @@ class _ReminderListState extends State<ReminderList> {
   void initState() {
     super.initState();
 
-    Timer timer = new Timer.periodic(new Duration(milliseconds: 500),
-        (Timer timer) async {
-      this.setState(() {
-        readReminders();
-      });
+    setState(() {
+      readReminders();
     });
   }
 
@@ -114,9 +111,11 @@ class _ReminderListState extends State<ReminderList> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => ReminderForm()));
-          setState(() {
-            readReminders();
+              context, MaterialPageRoute(builder: (context) => ReminderForm())
+          ).then((value) => {
+            setState(() {
+              readReminders();
+            })
           });
         },
         tooltip: 'Add',
