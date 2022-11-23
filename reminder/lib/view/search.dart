@@ -12,6 +12,8 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+  int selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,16 +28,14 @@ class _SearchState extends State<Search> {
           IconButton(
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ReminderList())
-              );
+                  MaterialPageRoute(builder: (context) => ReminderList()));
             },
             icon: Icon(Icons.home),
           ),
           IconButton(
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Profile())
-              );
+                  context, MaterialPageRoute(builder: (context) => Profile()));
             },
             icon: Icon(Icons.person),
           ),
@@ -56,7 +56,14 @@ class _SearchState extends State<Search> {
                             child: ListTile(
                       title: Text(medicine[index].name.toString()),
                       subtitle: Text(medicine[index].instructions!),
-                      onTap: () {},
+                      selected: index == selectedIndex,
+                      selectedTileColor: Colors.blue,
+                      selectedColor: Colors.white,
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                      },
                     )));
                   });
             } else {
