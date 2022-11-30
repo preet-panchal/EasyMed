@@ -8,6 +8,7 @@ import 'package:reminder/view/google_sign_in.dart';
 import 'package:reminder/view/login.dart';
 import 'package:reminder/view/profile.dart';
 import 'package:reminder/view/search.dart';
+import 'package:reminder/view/search_table.dart';
 
 import '../model/reminder_model.dart';
 
@@ -29,9 +30,12 @@ class _ReminderListState extends State<ReminderList> {
   void initState() {
     super.initState();
 
-    setState(() {
-      readReminders();
-    });
+    Timer timer = new Timer.periodic(new Duration(milliseconds: 500),
+            (Timer timer) async {
+          this.setState(() {
+            readReminders();
+          });
+        });
   }
 
   @override
@@ -59,7 +63,7 @@ class _ReminderListState extends State<ReminderList> {
           IconButton(
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Search())
+                  context, MaterialPageRoute(builder: (context) => SearchTable())
               );
               final snackText = 'Medications list pulled from Firebase.';
               final snackBar = SnackBar(
@@ -108,19 +112,19 @@ class _ReminderListState extends State<ReminderList> {
               },
             )));
           }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => ReminderForm())
-          ).then((value) => {
-            setState(() {
-              readReminders();
-            })
-          });
-        },
-        tooltip: 'Add',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.push(
+      //         context, MaterialPageRoute(builder: (context) => ReminderForm())
+      //     ).then((value) => {
+      //       setState(() {
+      //         readReminders();
+      //       })
+      //     });
+      //   },
+      //   tooltip: 'Add',
+      //   child: const Icon(Icons.add),
+      // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 

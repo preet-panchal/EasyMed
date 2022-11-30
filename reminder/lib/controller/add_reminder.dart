@@ -9,7 +9,9 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
 class ReminderForm extends StatefulWidget {
-  ReminderForm({Key? key}) : super(key: key);
+  ReminderForm({super.key, required this.reminder});
+
+  Reminder reminder;
 
   @override
   _ReminderFormState createState() {
@@ -53,6 +55,8 @@ class _ReminderFormState extends State<ReminderForm> {
         child: Column(
           children: [
             TextFormField(
+              initialValue:
+                  widget.reminder.name == null ? "" : widget.reminder.name,
               decoration: const InputDecoration(
                 labelText: "Medication Name:",
               ),
@@ -61,6 +65,8 @@ class _ReminderFormState extends State<ReminderForm> {
               },
             ),
             TextFormField(
+              initialValue:
+              widget.reminder.instructions == null ? "" : widget.reminder.instructions,
               decoration: const InputDecoration(
                 labelText: "Instructions:",
               ),
@@ -74,7 +80,7 @@ class _ReminderFormState extends State<ReminderForm> {
               decoration: const InputDecoration(
                   icon: Icon(Icons.calendar_today), //icon of text field
                   labelText: "Enter Date" //label text of field
-              ),
+                  ),
               readOnly: true,
               //set it true, so that user will not able to edit text
               onTap: () async {
@@ -88,7 +94,7 @@ class _ReminderFormState extends State<ReminderForm> {
                   print(
                       pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
                   String formattedDate =
-                  DateFormat('yyyy-MM-dd').format(pickedDate);
+                      DateFormat('yyyy-MM-dd').format(pickedDate);
                   print(
                       formattedDate); //formatted date output using intl package =>  2021-03-16
                   setState(() {
@@ -117,50 +123,50 @@ class _ReminderFormState extends State<ReminderForm> {
     Random random = new Random();
     int randomNumber = random.nextInt(10000);
     Reminder reminder = Reminder(
-        id: randomNumber,
-        name: _reminderName,
-        instructions: _reminderIntructions);
+        id: widget.reminder.id,
+        name: widget.reminder.name,
+        instructions: widget.reminder.instructions);
     _lastInsertedId = await _model.insertReminder(reminder);
     print("Grade Inserted: $_lastInsertedId, ${reminder.toString()}");
   }
 
   Future openDialog() => showDialog(
-      context: context,
-      builder: (context) => const AlertDialog(
-        title: Text('Medication successfully saved to profile.'),
-      ),
-  );
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text('Medication successfully saved to profile.'),
+        ),
+      );
 
-  void _notificationNow() async{
-    _notifications.sendNotificationNow(title, _reminderName.toString(),
-        _reminderIntructions.toString());
+  void _notificationNow() async {
+    _notifications.sendNotificationNow(
+        title, _reminderName.toString(), _reminderIntructions.toString());
   }
 
-  /**
-  Future _notificationLater() async{
+/**
+    Future _notificationLater() async{
     var when = tz.TZDateTime.now(tz.local)
-        .add(Duration(seconds: 3));
+    .add(Duration(seconds: 3));
 
     await _notifications.sendNotificationLater("hello", "hello", "hello", when);
 
     var snackBar = const SnackBar(
-      content: Text("Notification in 3 seconds",
-        style: TextStyle(fontSize: 30),
-      ),
+    content: Text("Notification in 3 seconds",
+    style: TextStyle(fontSize: 30),
+    ),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-  }
+    }
 
-  Future _showPendingNotifications() async{
+    Future _showPendingNotifications() async{
     var pendingNotificationRequests
     = await _notifications.getPendingNotificationRequests();
 
     print("Pending Notifications:");
     for (var pendNot in pendingNotificationRequests){
-      print("${pendNot.id} / ${pendNot.title} / ${pendNot.body}");
+    print("${pendNot.id} / ${pendNot.title} / ${pendNot.body}");
     }
-  }
-   **/
+    }
+ **/
 
 }

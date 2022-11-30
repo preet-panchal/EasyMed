@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reminder/view/home_page.dart';
 import 'package:reminder/view/reminder_list.dart';
 import 'package:reminder/view/search.dart';
+import 'package:reminder/view/search_table.dart';
 import 'package:reminder/view/user.dart';
 import 'package:reminder/view/user_info.dart';
 import 'package:reminder/view/profile_widget.dart';
@@ -28,7 +29,8 @@ class _ProfileState extends State<Profile> {
           IconButton(
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Search()));
+                  context, MaterialPageRoute(builder: (context) => SearchTable())
+              );
             },
             icon: Icon(Icons.search),
           ),
