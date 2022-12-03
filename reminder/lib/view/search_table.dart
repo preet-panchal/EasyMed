@@ -36,37 +36,38 @@ class _SearchTableState extends State<SearchTable> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
-        title: Text('Find Medications'),
+        title: const Text('Find Medications'),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
           ),
           IconButton(
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ReminderList()));
             },
-            icon: Icon(Icons.home),
+            icon: const Icon(Icons.home),
           ),
           IconButton(
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Profile()));
+                  context, MaterialPageRoute(builder: (context) => const Profile()));
             },
-            icon: Icon(Icons.person),
+            icon: const Icon(Icons.person),
           ),
         ],
+        automaticallyImplyLeading: false,
       ),
       body: StreamBuilder(
           stream: getAllMedicine(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return Text("Something went wrong!");
+              return const Text("Something went wrong!");
             } else if (snapshot.hasData) {
               final reminder = snapshot.data!;
               return DataTable(
-                columns: [
+                columns: const [
                   DataColumn(
                     label: Text("Name"),
                     tooltip: "Title",
@@ -82,7 +83,7 @@ class _SearchTableState extends State<SearchTable> {
                           DataCell(
                             Container(
                                 alignment: Alignment.center,
-                                padding: EdgeInsets.symmetric(horizontal: 16),
+                                padding: const EdgeInsets.symmetric(horizontal: 16),
                                 child: Row(
                                   children: [
                                     IconButton(
@@ -101,7 +102,7 @@ class _SearchTableState extends State<SearchTable> {
                                                 });
                                           });
                                         },
-                                        icon: Icon(Icons.add))
+                                        icon: const Icon(Icons.add))
                                   ],
                                 )),
                           ),
@@ -109,7 +110,7 @@ class _SearchTableState extends State<SearchTable> {
                     .toList(),
               );
             } else {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
           }),
     );
