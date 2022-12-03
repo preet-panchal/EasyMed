@@ -24,7 +24,7 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
-        title: Text('My Profile'),
+        title: const Text('My Profile'),
         actions: [
           IconButton(
             onPressed: () {
@@ -32,7 +32,7 @@ class _ProfileState extends State<Profile> {
                   context, MaterialPageRoute(builder: (context) => SearchTable())
               );
             },
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
           ),
 
           IconButton(
@@ -40,7 +40,7 @@ class _ProfileState extends State<Profile> {
               Navigator.push(context, MaterialPageRoute(
                   builder: (context) => ReminderList()));
             },
-            icon: Icon(Icons.home),
+            icon: const Icon(Icons.home),
           ),
 
           IconButton(
@@ -48,12 +48,13 @@ class _ProfileState extends State<Profile> {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Profile()));
             },
-            icon: Icon(Icons.person),
+            icon: const Icon(Icons.person),
           ),
         ],
+        automaticallyImplyLeading: false,
       ),
       body: ListView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         children: [
           const SizedBox(height: 24),
           ProfileWidget(
@@ -72,22 +73,22 @@ class _ProfileState extends State<Profile> {
         children: [
           Text(
             user.fullName,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
           ),
           const SizedBox(height: 16),
           Text(
             user.dateOfBirth,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
           ),
           const SizedBox(height: 16),
           Text(
             user.email,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
           ),
           const SizedBox(height: 16),
           Text(
             user.phone,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
           ),
           const SizedBox(height: 16),
           Text(
