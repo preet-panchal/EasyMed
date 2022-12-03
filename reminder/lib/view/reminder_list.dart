@@ -62,9 +62,8 @@ class _ReminderListState extends State<ReminderList> {
           // ),
           IconButton(
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => SearchTable())
-              );
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SearchTable()));
               final snackText = 'Medications list pulled from Firebase.';
               final snackBar = SnackBar(
                 duration: Duration(days: 365),
@@ -100,17 +99,17 @@ class _ReminderListState extends State<ReminderList> {
             return GestureDetector(
                 child: Container(
                     child: ListTile(
-              title: Text(_reminderList[index].name),
-              subtitle: Text(_reminderList[index].instructions),
-              selected: index == selectedIndex,
-              selectedTileColor: Colors.redAccent,
-              selectedColor: Colors.white,
-              onTap: () {
-                setState(() {
-                  selectedIndex = index;
-                });
-              },
-            )));
+                      title: Text("${_reminderList[index].time} - ${_reminderList[index].name}"),
+                      subtitle: Text(_reminderList[index].instructions),
+                      selected: index == selectedIndex,
+                      selectedTileColor: Colors.redAccent,
+                      selectedColor: Colors.white,
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                      },
+                    )));
           }),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () {
