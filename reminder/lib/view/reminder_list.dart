@@ -30,12 +30,14 @@ class _ReminderListState extends State<ReminderList> {
   void initState() {
     super.initState();
 
-    Timer timer = new Timer.periodic(new Duration(milliseconds: 500),
+    /**
+    Timer timer = Timer.periodic(const Duration(milliseconds: 500),
             (Timer timer) async {
-          this.setState(() {
+          setState(() {
             readReminders();
           });
         });
+        **/
   }
 
   @override
@@ -49,7 +51,7 @@ class _ReminderListState extends State<ReminderList> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("EasyMed"),
+        title: const Text("EasyMed"),
         actions: <Widget>[
           // IconButton(
           //   icon: const Icon(Icons.logout),
@@ -62,12 +64,15 @@ class _ReminderListState extends State<ReminderList> {
           // ),
           IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SearchTable()));
-              final snackText = 'Medications list pulled from Firebase.';
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => SearchTable())
+              ).then((value) => setState(() {
+                readReminders();
+              }));
+              const snackText = 'Medications list pulled from Firebase.';
               final snackBar = SnackBar(
-                duration: Duration(days: 365),
-                content: Text(snackText),
+                duration: const Duration(days: 365),
+                content: const Text(snackText),
                 action: SnackBarAction(
                   label: 'Dismiss',
                   onPressed: () {},
@@ -76,12 +81,12 @@ class _ReminderListState extends State<ReminderList> {
 
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             },
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
           ),
 
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.home),
+            icon: const Icon(Icons.home),
           ),
 
           IconButton(
@@ -89,9 +94,10 @@ class _ReminderListState extends State<ReminderList> {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Profile()));
             },
-            icon: Icon(Icons.person),
+            icon: const Icon(Icons.person),
           ),
         ],
+        automaticallyImplyLeading: false,
       ),
       body: ListView.builder(
           itemCount: _reminderList.length,
@@ -99,17 +105,17 @@ class _ReminderListState extends State<ReminderList> {
             return GestureDetector(
                 child: Container(
                     child: ListTile(
-                      title: Text("${_reminderList[index].time} - ${_reminderList[index].name}"),
-                      subtitle: Text(_reminderList[index].instructions),
-                      selected: index == selectedIndex,
-                      selectedTileColor: Colors.redAccent,
-                      selectedColor: Colors.white,
-                      onTap: () {
-                        setState(() {
-                          selectedIndex = index;
-                        });
-                      },
-                    )));
+              title: Text(_reminderList[index].name),
+              subtitle: Text(_reminderList[index].instructions),
+              selected: index == selectedIndex,
+              selectedTileColor: Colors.redAccent,
+              selectedColor: Colors.white,
+              onTap: () {
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
+            )));
           }),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () {
