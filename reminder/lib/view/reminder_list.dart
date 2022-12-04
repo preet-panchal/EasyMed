@@ -30,14 +30,12 @@ class _ReminderListState extends State<ReminderList> {
   void initState() {
     super.initState();
 
-    /**
-    Timer timer = Timer.periodic(const Duration(milliseconds: 500),
-            (Timer timer) async {
-          setState(() {
-            readReminders();
-          });
-        });
-        **/
+    Timer timer =
+        Timer.periodic(const Duration(milliseconds: 500), (Timer timer) async {
+      setState(() {
+        readReminders();
+      });
+    });
   }
 
   @override
@@ -64,11 +62,11 @@ class _ReminderListState extends State<ReminderList> {
           // ),
           IconButton(
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => SearchTable())
-              ).then((value) => setState(() {
-                readReminders();
-              }));
+              Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SearchTable()))
+                  .then((value) => setState(() {
+                        readReminders();
+                      }));
               const snackText = 'Medications list pulled from Firebase.';
               final snackBar = SnackBar(
                 duration: const Duration(days: 365),
@@ -105,7 +103,9 @@ class _ReminderListState extends State<ReminderList> {
             return GestureDetector(
                 child: Container(
                     child: ListTile(
-              title: Text(_reminderList[index].name),
+              title: Text(_reminderList[index].time +
+                  " - " +
+                  _reminderList[index].name),
               subtitle: Text(_reminderList[index].instructions),
               selected: index == selectedIndex,
               selectedTileColor: Colors.redAccent,
