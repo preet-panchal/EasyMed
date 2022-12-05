@@ -27,18 +27,26 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Login"),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Image.asset(
+              'assets/images/logo.png',
+              height: 300,
+              width: 300,
+            ),
+            Text(""),
+            Text(""),
+            Text(""),
+            Text(""),
+            Text(""),
+            Text(""),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                  primary: Colors.red,
-                  onPrimary: Colors.white,
-                  minimumSize: Size(double.infinity, 50)),
+                primary: Colors.red,
+                onPrimary: Colors.white,
+              ),
               onPressed: () {
                 final provider =
                     Provider.of<GoogleSignInProvider>(context, listen: false);
@@ -48,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                 FontAwesomeIcons.google,
                 color: Colors.white,
               ),
-              label: Text("Sign in with Google"),
+              label: Text("Login with Google"),
             )
           ],
         ),

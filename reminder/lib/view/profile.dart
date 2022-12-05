@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:reminder/view/home_page.dart';
 import 'package:reminder/view/reminder_list.dart';
 import 'package:reminder/view/search.dart';
@@ -8,6 +9,8 @@ import 'package:reminder/view/user_info.dart';
 import 'package:reminder/view/profile_widget.dart';
 
 import 'package:reminder/main.dart';
+
+import 'google_sign_in.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -28,21 +31,18 @@ class _ProfileState extends State<Profile> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => SearchTable())
-              );
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SearchTable()));
             },
             icon: const Icon(Icons.search),
           ),
-
           IconButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => ReminderList()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ReminderList()));
             },
             icon: const Icon(Icons.home),
           ),
-
           IconButton(
             onPressed: () {
               Navigator.push(
@@ -68,8 +68,7 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  Widget buildProfile(User user) =>
-      Column(
+  Widget buildProfile(User user) => Column(
         children: [
           Text(
             user.fullName,
