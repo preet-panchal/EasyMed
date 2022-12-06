@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:reminder/view/google_sign_in.dart';
+import 'package:reminder/view/reminder_list.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -57,6 +58,18 @@ class _LoginPageState extends State<LoginPage> {
                 color: Colors.white,
               ),
               label: Text("Login with Google"),
+            ),
+            Text(""),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.red,
+                onPrimary: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ReminderList()));
+              },
+              child: Text("Login as Guest"),
             )
           ],
         ),

@@ -86,14 +86,15 @@ class _ReminderListState extends State<ReminderList> {
             onPressed: () {},
             icon: const Icon(Icons.home),
           ),
-
           IconButton(
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Profile()));
+              if (FirebaseAuth.instance.currentUser != null) {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Profile()));
+              }
             },
             icon: const Icon(Icons.person),
-          ),
+          )
         ],
         automaticallyImplyLeading: false,
       ),

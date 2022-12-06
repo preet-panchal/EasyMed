@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class User {
+class Users {
   // final int id;
   final String imagePath;
   final String fullName;
@@ -9,7 +9,7 @@ class User {
   final String phone;
   final String healthID;
 
-  const User({
+  const Users({
     // required this.id,
     required this.imagePath,
     required this.fullName,
