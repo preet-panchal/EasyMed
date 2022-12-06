@@ -48,63 +48,82 @@ class _ProfileState extends State<Profile> {
             ),
             IconButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Profile()));
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => Profile()));
               },
               icon: const Icon(Icons.person),
             ),
           ],
           automaticallyImplyLeading: false,
         ),
-        body: Column(
-          children: [
-            const SizedBox(height: 24),
-            user.photoURL == null
-                ? Text("")
-                : ProfileWidget(
-                    imagePath: user.photoURL!,
-                    onClicked: () async {},
-                  ),
-            const SizedBox(height: 24),
-            user.displayName == null
-                ? Text("Guest")
-                : Text(
-                    user.displayName!,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 24),
-                  ),
-            const SizedBox(height: 16),
-            user.displayName == null
-                ? Text("")
-                : Text(
-                    "2000-01-23",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 24),
-                  ),
-            const SizedBox(height: 16),
-            user.email == null
-                ? Text("")
-                : Text(
-                    user.email!,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 24),
-                  ),
-            const SizedBox(height: 16),
-            user.phoneNumber == null
-                ? Text("")
-                : Text(
-                    user.phoneNumber!,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 24),
-                  ),
-            const SizedBox(height: 16),
-            user.uid == null
-                ? Text("")
-                : Text(
-                    user.uid!,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-                  ),
-          ],
-        ));
+        body: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 24),
+                user.photoURL == null
+                    ? Text("")
+                    : ProfileWidget(
+                        imagePath: user.photoURL!,
+                        onClicked: () async {},
+                      ),
+                const SizedBox(height: 24),
+                user.displayName == null
+                    ? Text("Guest")
+                    : TextFormField(
+                        enabled: false,
+                        readOnly: true,
+                        initialValue: user.displayName,
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Full name:',
+                        ),
+                      ),
+                user.email == null
+                    ? Text("")
+                    : TextFormField(
+                        enabled: false,
+                        readOnly: true,
+                        initialValue: user.email,
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Email:',
+                        ),
+                      ),
+                user.phoneNumber == null
+                    ? Text("")
+                    : TextFormField(
+                        enabled: false,
+                        readOnly: true,
+                        initialValue: user.phoneNumber!,
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Phone number:',
+                        ),
+                      ),
+                user.displayName == null
+                    ? Text("")
+                    : TextFormField(
+                        enabled: false,
+                        readOnly: true,
+                        initialValue: "2000-03-10",
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Date of birth:',
+                        ),
+                      ),
+                user.uid == null
+                    ? Text("")
+                    : TextFormField(
+                        enabled: false,
+                        readOnly: true,
+                        initialValue: user.uid,
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Health ID:',
+                        ),
+                      )
+              ],
+            )));
   }
 }
