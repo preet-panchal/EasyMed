@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:reminder/view/profile.dart';
+import 'package:reminder/view/reminder_list.dart';
 import 'package:reminder/view/search_table.dart';
 
 AppBar navBar(BuildContext context, String title, String? snackText) {
@@ -36,7 +37,9 @@ AppBar navBar(BuildContext context, String title, String? snackText) {
       ),
 
       IconButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ReminderList()));
+        },
         icon: const Icon(Icons.home),
       ),
       IconButton(

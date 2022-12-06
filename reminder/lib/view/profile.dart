@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:reminder/view/profile_widget.dart';
+import 'package:reminder/view/reminder_list.dart';
 import 'NavBar.dart';
+import 'search_table.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
