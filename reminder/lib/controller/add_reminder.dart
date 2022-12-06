@@ -1,15 +1,16 @@
-import 'dart:math';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:reminder/model/reminder.dart';
-
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import '../model/reminder_model.dart';
 import 'notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
 class ReminderForm extends StatefulWidget {
-  ReminderForm({Key? key}) : super(key: key);
+  ReminderForm({super.key, required this.reminder});
+
+  Reminder reminder;
 
   @override
   _ReminderFormState createState() {
@@ -24,6 +25,7 @@ class _ReminderFormState extends State<ReminderForm> {
 
   var _reminderName;
   var _reminderIntructions;
+  var _reminderUsage;
   var _lastInsertedId = 0;
   var _model = ReminderModel();
   var _replaceId;
@@ -44,6 +46,7 @@ class _ReminderFormState extends State<ReminderForm> {
   Widget build(BuildContext context) {
     // TODO: implement build
     _notifications.init();
+    final format = DateFormat('yyyy-MM-dd HH:mm');
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -53,6 +56,8 @@ class _ReminderFormState extends State<ReminderForm> {
         child: Column(
           children: [
             TextFormField(
+              initialValue:
+                  widget.reminder.name == null ? "" : widget.reminder.name,
               decoration: const InputDecoration(
                 labelText: "Medication Name:",
               ),
@@ -61,6 +66,9 @@ class _ReminderFormState extends State<ReminderForm> {
               },
             ),
             TextFormField(
+              initialValue: widget.reminder.instructions == null
+                  ? ""
+                  : widget.reminder.instructions,
               decoration: const InputDecoration(
                 labelText: "Instructions:",
               ),
@@ -68,36 +76,44 @@ class _ReminderFormState extends State<ReminderForm> {
                 _reminderIntructions = value;
               },
             ),
-            TextField(
-              controller: dateInput,
-              //editing controller of this TextField
+            TextFormField(
+              keyboardType: TextInputType.multiline,
+              minLines: 1,
+              maxLines: 10,
+              initialValue:
+                  widget.reminder.usage == null ? "" : widget.reminder.usage,
+              decoration: const InputDecoration(
+                labelText: "Usage:",
+              ),
+              onChanged: (value) {
+                _reminderUsage = value;
+              },
+            ),
+            DateTimeField(
+              format: format,
               decoration: const InputDecoration(
                   icon: Icon(Icons.calendar_today), //icon of text field
-                  labelText: "Enter Date" //label text of field
-              ),
-              readOnly: true,
-              //set it true, so that user will not able to edit text
-              onTap: () async {
-                DateTime? pickedDate = await showDatePicker(
+                  labelText: "Enter Date & Time" //label text of field
+                  ),
+              onShowPicker: (context, currentValue) async {
+                final date = await showDatePicker(
                     context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime.now(),
+                    initialDate: currentValue ?? DateTime.now(),
+                    firstDate: DateTime(1900),
                     lastDate: DateTime(2100));
-
-                if (pickedDate != null) {
-                  print(
-                      pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                  String formattedDate =
-                  DateFormat('yyyy-MM-dd').format(pickedDate);
-                  print(
-                      formattedDate); //formatted date output using intl package =>  2021-03-16
-                  setState(() {
-                    dateInput.text =
-                        formattedDate; //set output date to TextField value.
-                  });
-                } else {}
+                if (date != null) {
+                  final time = await showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.fromDateTime(
+                          currentValue ?? DateTime.now()));
+                  widget.reminder.date = "${date.year}-${date.month}-${date.day}";
+                  widget.reminder.time = "${time?.hour}:${time?.minute}";
+                  return DateTimeField.combine(date, time);
+                } else {
+                  return currentValue;
+                }
               },
-            )
+            ),
           ],
         ),
       ),
@@ -114,53 +130,27 @@ class _ReminderFormState extends State<ReminderForm> {
   }
 
   Future _addReminder() async {
-    Random random = new Random();
-    int randomNumber = random.nextInt(10000);
     Reminder reminder = Reminder(
-        id: randomNumber,
-        name: _reminderName,
-        instructions: _reminderIntructions);
+        id: widget.reminder.id,
+        name: widget.reminder.name,
+        instructions: widget.reminder.instructions,
+        usage: widget.reminder.usage,
+        date: widget.reminder.date,
+        time: widget.reminder.time);
     _lastInsertedId = await _model.insertReminder(reminder);
     print("Grade Inserted: $_lastInsertedId, ${reminder.toString()}");
   }
 
   Future openDialog() => showDialog(
-      context: context,
-      builder: (context) => const AlertDialog(
-        title: Text('Medication successfully saved to profile.'),
-      ),
-  );
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text('Medication successfully saved to profile.'),
+        ),
+      );
 
-  void _notificationNow() async{
-    _notifications.sendNotificationNow(title, _reminderName.toString(),
-        _reminderIntructions.toString());
+  void _notificationNow() async {
+    _notifications.sendNotificationNow(
+        title, _reminderName.toString(), _reminderIntructions.toString());
   }
-
-  /**
-  Future _notificationLater() async{
-    var when = tz.TZDateTime.now(tz.local)
-        .add(Duration(seconds: 3));
-
-    await _notifications.sendNotificationLater("hello", "hello", "hello", when);
-
-    var snackBar = const SnackBar(
-      content: Text("Notification in 3 seconds",
-        style: TextStyle(fontSize: 30),
-      ),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-  }
-
-  Future _showPendingNotifications() async{
-    var pendingNotificationRequests
-    = await _notifications.getPendingNotificationRequests();
-
-    print("Pending Notifications:");
-    for (var pendNot in pendingNotificationRequests){
-      print("${pendNot.id} / ${pendNot.title} / ${pendNot.body}");
-    }
-  }
-   **/
 
 }

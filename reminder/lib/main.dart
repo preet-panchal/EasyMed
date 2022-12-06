@@ -7,7 +7,7 @@ import 'package:reminder/view/login.dart';
 import 'package:reminder/view/reminder_list.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-Future main() async{
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 

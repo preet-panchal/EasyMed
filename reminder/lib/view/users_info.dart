@@ -1,7 +1,7 @@
-import 'package:reminder/view/user.dart';
+import 'package:reminder/view/users.dart';
 
-class UserInfo {
-  static const myUser = User(
+class UsersInfo {
+  static const myUser = Users(
     imagePath:
     //'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=333&q=80',
     'https://img.freepik.com/premium-vector/face-cute-girl-avatar-young-girl-portrait-vector-flat-illustration_192760-82.jpg',

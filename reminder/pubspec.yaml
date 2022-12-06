@@ -58,6 +58,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   timezone:
   flutter_local_notifications:
+  datetime_picker_formfield: ^2.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -69,7 +70,8 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  assets:
+    - assets/images/logo.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
@@ -100,3 +102,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+dependency_overrides:
+  firebase_core_platform_interface: 4.5.1

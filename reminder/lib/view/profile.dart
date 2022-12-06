@@ -1,12 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:reminder/view/home_page.dart';
-import 'package:reminder/view/reminder_list.dart';
-import 'package:reminder/view/search.dart';
-import 'package:reminder/view/user.dart';
-import 'package:reminder/view/user_info.dart';
 import 'package:reminder/view/profile_widget.dart';
-
-import 'package:reminder/main.dart';
+import 'NavBar.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -16,82 +11,108 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  var user = FirebaseAuth.instance.currentUser!;
+
   @override
   Widget build(BuildContext context) {
-    final user = UserInfo.myUser;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        title: Text('My Profile'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Search()));
-            },
-            icon: Icon(Icons.search),
-          ),
-
-          IconButton(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => ReminderList()));
-            },
-            icon: Icon(Icons.home),
-          ),
-
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Profile()));
-            },
-            icon: Icon(Icons.person),
-          ),
-        ],
-      ),
-      body: ListView(
-        physics: BouncingScrollPhysics(),
-        children: [
-          const SizedBox(height: 24),
-          ProfileWidget(
-            imagePath: user.imagePath,
-            onClicked: () async {},
-          ),
-          const SizedBox(height: 24),
-          buildProfile(user),
-        ],
-      ),
-    );
+        appBar: AppBar(
+          backgroundColor: Colors.red,
+          title: const Text('My Profile'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SearchTable()));
+              },
+              icon: const Icon(Icons.search),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ReminderList()));
+              },
+              icon: const Icon(Icons.home),
+            ),
+            IconButton(
+              onPressed: () {
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => Profile()));
+              },
+              icon: const Icon(Icons.person),
+            ),
+          ],
+          automaticallyImplyLeading: false,
+        ),
+        body: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 24),
+                user.photoURL == null
+                    ? Text("")
+                    : ProfileWidget(
+                        imagePath: user.photoURL!,
+                        onClicked: () async {},
+                      ),
+                const SizedBox(height: 24),
+                user.displayName == null
+                    ? Text("Guest")
+                    : TextFormField(
+                        enabled: false,
+                        readOnly: true,
+                        initialValue: user.displayName,
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Full name:',
+                        ),
+                      ),
+                user.email == null
+                    ? Text("")
+                    : TextFormField(
+                        enabled: false,
+                        readOnly: true,
+                        initialValue: user.email,
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Email:',
+                        ),
+                      ),
+                user.phoneNumber == null
+                    ? Text("")
+                    : TextFormField(
+                        enabled: false,
+                        readOnly: true,
+                        initialValue: user.phoneNumber!,
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Phone number:',
+                        ),
+                      ),
+                user.displayName == null
+                    ? Text("")
+                    : TextFormField(
+                        enabled: false,
+                        readOnly: true,
+                        initialValue: "2000-03-10",
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Date of birth:',
+                        ),
+                      ),
+                user.uid == null
+                    ? Text("")
+                    : TextFormField(
+                        enabled: false,
+                        readOnly: true,
+                        initialValue: user.uid,
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Health ID:',
+                        ),
+                      )
+              ],
+            )));
   }
-
-  Widget buildProfile(User user) =>
-      Column(
-        children: [
-          Text(
-            user.fullName,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            user.dateOfBirth,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            user.email,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            user.phone,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            user.healthID,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-          ),
-        ],
-      );
 }
