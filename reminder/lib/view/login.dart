@@ -37,12 +37,12 @@ class _LoginPageState extends State<LoginPage> {
               height: 300,
               width: 300,
             ),
-            Text(""),
-            Text(""),
-            Text(""),
-            Text(""),
-            Text(""),
-            Text(""),
+            const Text(""),
+            const Text(""),
+            const Text(""),
+            const Text(""),
+            const Text(""),
+            const Text(""),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 primary: Colors.red,
@@ -53,13 +53,13 @@ class _LoginPageState extends State<LoginPage> {
                     Provider.of<GoogleSignInProvider>(context, listen: false);
                 provider.googleLogin();
               },
-              icon: FaIcon(
+              icon: const FaIcon(
                 FontAwesomeIcons.google,
                 color: Colors.white,
               ),
-              label: Text("Login with Google"),
+              label: const Text("Login with Google"),
             ),
-            Text(""),
+            const Text(""),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Colors.red,
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => ReminderList()));
               },
-              child: Text("Login as Guest"),
+              child: const Text("Login as Guest"),
             )
           ],
         ),

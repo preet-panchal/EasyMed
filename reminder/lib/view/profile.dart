@@ -1,17 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:reminder/view/home_page.dart';
-import 'package:reminder/view/reminder_list.dart';
-import 'package:reminder/view/search.dart';
-import 'package:reminder/view/search_table.dart';
-import 'package:reminder/view/users.dart';
-import 'package:reminder/view/users_info.dart';
 import 'package:reminder/view/profile_widget.dart';
-
-import 'package:reminder/main.dart';
-
-import 'google_sign_in.dart';
+import 'NavBar.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -25,7 +15,6 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    //final user = UserInfo.myUser;
 
     return Scaffold(
         appBar: AppBar(

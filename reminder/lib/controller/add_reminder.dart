@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:reminder/model/reminder.dart';
@@ -90,36 +89,6 @@ class _ReminderFormState extends State<ReminderForm> {
                 _reminderUsage = value;
               },
             ),
-            // TextField(
-            //   controller: dateInput,
-            //   //editing controller of this TextField
-            //   decoration: const InputDecoration(
-            //       icon: Icon(Icons.calendar_today), //icon of text field
-            //       labelText: "Enter Date" //label text of field
-            //       ),
-            //   readOnly: true,
-            //   //set it true, so that user will not able to edit text
-            //   onTap: () async {
-            //     DateTime? pickedDate = await showDatePicker(
-            //         context: context,
-            //         initialDate: DateTime.now(),
-            //         firstDate: DateTime.now(),
-            //         lastDate: DateTime(2100));
-            //
-            //     if (pickedDate != null) {
-            //       print(
-            //           pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-            //       String formattedDate =
-            //           DateFormat('yyyy-MM-dd').format(pickedDate);
-            //       print(
-            //           formattedDate); //formatted date output using intl package =>  2021-03-16
-            //       setState(() {
-            //         dateInput.text =
-            //             formattedDate; //set output date to TextField value.
-            //       });
-            //     } else {}
-            //   },
-            // ),
             DateTimeField(
               format: format,
               decoration: const InputDecoration(
@@ -183,32 +152,5 @@ class _ReminderFormState extends State<ReminderForm> {
     _notifications.sendNotificationNow(
         title, _reminderName.toString(), _reminderIntructions.toString());
   }
-
-/**
-    Future _notificationLater() async{
-    var when = tz.TZDateTime.now(tz.local)
-    .add(Duration(seconds: 3));
-
-    await _notifications.sendNotificationLater("hello", "hello", "hello", when);
-
-    var snackBar = const SnackBar(
-    content: Text("Notification in 3 seconds",
-    style: TextStyle(fontSize: 30),
-    ),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-    }
-
-    Future _showPendingNotifications() async{
-    var pendingNotificationRequests
-    = await _notifications.getPendingNotificationRequests();
-
-    print("Pending Notifications:");
-    for (var pendNot in pendingNotificationRequests){
-    print("${pendNot.id} / ${pendNot.title} / ${pendNot.body}");
-    }
-    }
- **/
 
 }

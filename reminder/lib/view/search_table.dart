@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:reminder/view/profile.dart';
-import 'package:reminder/view/reminder_list.dart';
-
 import '../controller/add_reminder.dart';
 import '../model/reminder.dart';
+import 'NavBar.dart';
 
 class SearchTable extends StatefulWidget {
   SearchTable({Key? key}) : super(key: key);
@@ -16,12 +14,10 @@ class SearchTable extends StatefulWidget {
 }
 
 class _SearchTableState extends State<SearchTable> {
-  List<Reminder> _reminders = [];
 
   @override
   void initState() {
     super.initState();
-
     getAllMedicine();
   }
 
@@ -34,31 +30,7 @@ class _SearchTableState extends State<SearchTable> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        title: const Text('Find Medications'),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.search),
-          ),
-          IconButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ReminderList()));
-            },
-            icon: const Icon(Icons.home),
-          ),
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => const Profile()));
-            },
-            icon: const Icon(Icons.person),
-          ),
-        ],
-        automaticallyImplyLeading: false,
-      ),
+      appBar: navBar(context, "Find Medications", ""),
       body: StreamBuilder(
           stream: getAllMedicine(),
           builder: (context, snapshot) {
@@ -95,11 +67,7 @@ class _SearchTableState extends State<SearchTable> {
                                                     builder: (context) =>
                                                         ReminderForm(
                                                           reminder: reminder!,
-                                                        ))).then((value) => {
-                                                  setState(() {
-                                                    //readReminders();
-                                                  })
-                                                });
+                                                        )));
                                           });
                                         },
                                         icon: const Icon(Icons.add))
