@@ -43,7 +43,7 @@ class _ReminderListState extends State<ReminderList> {
         children: <Widget>[
           Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height - 112,
+            height: MediaQuery.of(context).size.height - 118.2, // Pixel 4 sizing
             child: ListView.builder(
                 itemCount: _reminderList.length,
                 itemBuilder: (BuildContext context, int index) {
