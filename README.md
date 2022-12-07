@@ -8,7 +8,7 @@ Group members (3-5) (no Student IDs, only names and github usernames):
 
 3. Eihab Syed (EihabSyed)
 
-4. Preet Panchal (preetpanchal)
+4. Preet Panchal (preet-panchal)
 
 5. Fadi Chamas (FadiChamas)
 
