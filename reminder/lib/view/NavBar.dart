@@ -1,22 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:reminder/view/location_viewer.dart';
 import 'package:reminder/view/profile.dart';
+import 'package:reminder/view/reminder_list.dart';
 import 'package:reminder/view/search_table.dart';
 
 AppBar navBar(BuildContext context, String title, String? snackText) {
   return AppBar(
     title: Text(title),
     actions: <Widget>[
-      // IconButton(
-      //   icon: const Icon(Icons.logout),
-      //   tooltip: 'Edit',
-      //   onPressed: () {
-      //     final provider =
-      //         Provider.of<GoogleSignInProvider>(context, listen: false);
-      //     provider.logout();
-      //   },
-      // ),
+      IconButton(
+        icon: const Icon(Icons.location_on),
+        tooltip: 'Location',
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => LocationViewer()));
+        },
+      ),
       IconButton(
         onPressed: () {
           Navigator.push(context,
@@ -36,7 +36,9 @@ AppBar navBar(BuildContext context, String title, String? snackText) {
       ),
 
       IconButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ReminderList()));
+        },
         icon: const Icon(Icons.home),
       ),
       IconButton(
