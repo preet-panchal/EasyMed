@@ -1,10 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reminder/view/google_sign_in.dart';
 import 'package:reminder/view/home_page.dart';
-import 'package:reminder/view/login.dart';
-import 'package:reminder/view/reminder_list.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future main() async {
@@ -21,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) => ChangeNotifierProvider(
       create: (context) => GoogleSignInProvider(),
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'EasyMed App',
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
