@@ -4,8 +4,6 @@ import 'package:reminder/model/reminder.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import '../model/reminder_model.dart';
 import 'notifications.dart';
-import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tz;
 
 class ReminderForm extends StatefulWidget {
   ReminderForm({super.key, required this.reminder});
@@ -150,7 +148,7 @@ class _ReminderFormState extends State<ReminderForm> {
 
   void _notificationNow() async {
     _notifications.sendNotificationNow(
-        title, _reminderName.toString(), _reminderIntructions.toString());
+        "Add Medication Reminder", "New Medicine Added", "Take Medication");
   }
 
 }
