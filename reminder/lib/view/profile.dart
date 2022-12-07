@@ -17,36 +17,9 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.red,
-          title: const Text('My Profile'),
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SearchTable()));
-              },
-              icon: const Icon(Icons.search),
-            ),
-            IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ReminderList()));
-              },
-              icon: const Icon(Icons.home),
-            ),
-            IconButton(
-              onPressed: () {
-                // Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) => Profile()));
-              },
-              icon: const Icon(Icons.person),
-            ),
-          ],
-          automaticallyImplyLeading: false,
-        ),
+        appBar: navBar(
+            context, "Profile", "Medications list pulled from Firebase."),
         body: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(

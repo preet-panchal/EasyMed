@@ -1,5 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.reminder">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
    <application
         android:label="reminder"
         android:name="${applicationName}"
@@ -30,5 +35,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+                    <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyBX0Q95I1YYY-C492c5EipB9o1vlJxe3Ro"/>
     </application>
 </manifest>
